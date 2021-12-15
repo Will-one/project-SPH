@@ -1,7 +1,9 @@
 <template>
   <div>
     <Header></Header>
-    <Footer></Footer>
+    <router-view></router-view>
+    <!-- Login 和 Register 页面Footer不显示 -->
+    <Footer v-show="$route.meta.footerShow"></Footer>
   </div>
 </template>
 
