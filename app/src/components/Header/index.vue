@@ -68,7 +68,7 @@ export default {
       // 第二种：模板字符串(params和query参数一起演示)
       // this.$router.push(`/search/${this.keyword}?k=${this.keyword}`)
       // 第三种（常用）：对象【params对象形式的时候，必须用name】
-      this.$router.push({name:"search",params:{keyword:this.keyword},query:{k=this.keyword}})
+      this.$router.push({name:"search",params:{keyword:this.keyword},query:{k:this.keyword}})
     },
   },
 };

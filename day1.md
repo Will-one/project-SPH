@@ -90,3 +90,68 @@ npm install less less-loader@5
 2. 引入
 3. 注册
 4. 使用
+
+## 5. 路由组件的搭建
+经过上面的分析，路由组件应该有四个：Home、Search、Login、Register
+* components文件夹：经常放置非路由组件（共用全局组件）
+* pages/views文件夹：放路由组件
+
+5.1 配置路由
+* 项目中配置的路由一般放置在router文件夹中
+  
+5.2 总结
+* 路由组件与非路由组件的区别
+    1. 路由组件一般放置在pages/view文件夹，非路由组件一般放置在components文件夹
+    2. 路由组件一般需要在router文件夹中进行注册（使用的即为组件的名字），非路由组件在使用的时候，一般都是以标签的形式使用
+    3. 注册完路由，路由组件或者非路由组件都有 $route 和 $router 属性
+
+* $route：一般获取路由信息【路径、query、params等等】
+* $router：一般进行编程式导航的时候使用路由跳转【push/replace】
+
+
+5.3 路由的跳转
+* 路由的跳转有两种形式
+    * 声明式导航【router-link】
+    * 编程式导航【push/replace】
+
+使用注意：声明式导航能做的，编程式导航都能。
+
+编程式导航除了能进行路由跳转，还可以做一些其他的业务逻辑【验完账户密码再调，异步等等】。
+
+## 6. Footer组件的显示与隐藏
+* Footer组件在Login和Register中不显示
+* 显示或者是隐藏组件v-if或者v-show
+* 可以为路由添加meta路由元信息进行判断【$route.meta.footerShow】
+
+## 7. 路由传参，参数有几种写法
+* params参数：属于路径中的一部分，需要注意，在配置路由的时候，需要占位
+* query参数：不属于路径中的一部分，类似于ajax中的queryString /home?k=v&
+```js
+// 路由传递参数【params要在path里面占位】
+// 第一种：字符串形式(params和query参数一起演示)
+this.$router.push("/search/" + this.keyword+"?k="+this.this.keyword)
+// 第二种：模板字符串(params和query参数一起演示)
+this.$router.push(`/search/${this.keyword}?k=${this.keyword}`)
+// 第三种（常用）：对象【params对象形式的时候，必须用name】
+this.$router.push({name:"search",params:{keyword:this.keyword},query:{k=this.keyword}})
+```
+
+问题：如何指定params参数可传可不传？
+* 如果路由要求传递params参数，但是你就不传递params参数，URL会有问题。
+* 如果像让params参数可传可不传，可以在router路径写占位的后面加上一个？
+
+问题：如果params传入空串 URL也会出问题，怎么解决
+* 短路或 一个undefined
+```js
+this.$router.push({name:"search",params:{keyword:'' || undefined},query:{k=this.keyword}})
+```
+
+传递props参数【在router的js文件中配置】
+* props为true，路由组件会将params参数以props的形式传递，在目标组件需要对应引入props参数
+* props为对象，对象中的k-v都会以props的形式传递，在目标组件需要对应引入props参数
+* props为函数，传入的参数是页面的路由【$route】
+```js
+props:($route)=>{
+    return { keyword:$route.params.params.keyword, k:$route.query }
+}
+```
