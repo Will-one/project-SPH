@@ -48,9 +48,10 @@ export default new VueRouter({
             meta: { footerShow: true }
         },
         {
-            path: '/search/:keyword',
+            path: '/search',
             component: Search,
-            meta: { footerShow: true }
+            name:'search',
+            meta: { footerShow: true , typeNavAutoShow: false }
         },
         {
             path: '/login',

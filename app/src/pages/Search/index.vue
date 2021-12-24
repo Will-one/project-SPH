@@ -1,5 +1,7 @@
 <template>
-  <div>查询</div>
+  <div>
+    <TypeNav></TypeNav>
+  </div>
 </template>
 
 <script>
