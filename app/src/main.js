@@ -9,7 +9,12 @@ Vue.config.productionTip = false
 
 // 引入路由
 import router from '@/router'
+// 引入vuex
 import store from '@/store'
+// 引入mockjs
+import '@/mock/mockServe'
+// 引入swiper的样式
+import 'swiper/css/swiper.css'
 
 new Vue({
   render: h => h(App),

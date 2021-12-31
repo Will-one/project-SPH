@@ -111,8 +111,7 @@ export default {
       // 编程式导航+事件委派 【要对子节点进行区分并传递对应的参数】
       let element = event.target;
       if (element) {
-        let { categoryname, category1id, category2id, category3id } =
-          element.dataset;
+        let { categoryname, category1id, category2id, category3id } = element.dataset;
 
         if (categoryname) {
           let location = { name: "search" };
