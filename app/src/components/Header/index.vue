@@ -59,6 +59,12 @@ export default {
       keyword:''
     }
   },
+  mounted() {
+    this.$bus.$on('rmkw',()=>{
+      // 清空搜索框中的内容
+      this.keyword = ''
+    })
+  },
   methods: {
     // 搜索按钮的回调函数
     goSearch() {
@@ -68,8 +74,8 @@ export default {
       // 第二种：模板字符串(params和query参数一起演示)
       // this.$router.push(`/search/${this.keyword}?k=${this.keyword}`)
       // 第三种（常用）：对象【params对象形式的时候，必须用name】
-      this.$router.push({name:"search",params:{keyword:this.keyword || undefined}})
-    },
+      this.$router.push({name:"search",params:{keyword:this.keyword || undefined}, query:this.$route.query})
+    }
   },
 };
 </script>

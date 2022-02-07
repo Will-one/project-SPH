@@ -102,12 +102,14 @@ export default {
     }, 50),
     leaveIndex() {
       this.currentIndex = -1;
-      if (this.$route.path == "/search") {
+      if (this.$route.name == "search") {
         this.isShow = false;
       }
     },
 
     goSearch() {
+      // 将全部商品分类关闭
+      this.isShow = false;
       // 编程式导航+事件委派 【要对子节点进行区分并传递对应的参数】
       let element = event.target;
       if (element) {
@@ -131,7 +133,7 @@ export default {
     },
 
     categoryListShow() {
-      if (this.$route.path == "/search") {
+      if (this.$route.name == "search") {
         this.isShow = true;
       }
     },

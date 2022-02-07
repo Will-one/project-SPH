@@ -7,6 +7,9 @@ import mockRequests from './mockAjax'
 // /api/product/getBaseCategoryList
 export const reqGetCategoryList = () => requests({ url: '/product/getBaseCategoryList', method: 'get' })
 
+// 获取搜索模块数据 接口/api/list 请求方式post
+export const reqGetSearchInfo = (params) => requests({url:'/list',method:'post',data:params})
+
 // mock
-export const reqGetBannerList = () => mockRequests({ url: '/banner', methods: 'get' })
-export const reqGetFloorList = () => mockRequests({ url: '/floor', methods: 'get' })
+export const reqGetBannerList = () => mockRequests({ url: '/banner', method: 'get' })
+export const reqGetFloorList = () => mockRequests({ url: '/floor', method: 'get' })
