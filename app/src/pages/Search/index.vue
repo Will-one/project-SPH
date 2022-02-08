@@ -13,10 +13,12 @@
           <ul class="fl sui-tag">
             <li class="with-x" v-if="searchParams.categoryName">{{searchParams.categoryName}}<i @click="removeCategoryName">×</i></li>
             <li class="with-x" v-if="searchParams.keyword">{{searchParams.keyword}}<i @click="removeKeyword">×</i></li>
+            <li class="with-x" v-if="searchParams.trademark">{{searchParams.trademark.split(':')[1]}}<i @click="removeTrademark">×</i></li>
+            <li class="with-x" v-for="(attrInfo,index) in searchParams.props" :key="index">{{attrInfo.split(':')[1]}}<i @click="removeAttr(index)">×</i></li>
           </ul>
         </div>
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector @trademarkInfo="trademarkInfo" @attrsInfo="attrsInfo"/>
         <!--details-->
         <div class="details clearfix">
           <div class="sui-navbar">
@@ -269,6 +271,26 @@ export default {
       this.$router.push({name : 'search', query : this.$route.query})
       // 通知兄弟组件header清除关键字
       this.$bus.$emit('rmkw')
+    },
+    trademarkInfo(tm){
+      // 接口要求的参数是 品牌ID:品牌名称
+      this.searchParams.trademark = `${tm.tmId}:${tm.tmName}`
+      this.getData()
+    },
+    removeTrademark(){
+      this.searchParams.trademark = undefined
+      this.getData()
+    },
+    attrsInfo(attrs,attrValue){
+      let props = `${attrs.attrId}:${attrValue}:${attrs.attrName}`
+      if(this.searchParams.props.indexOf(props)==-1){
+        this.searchParams.props.push(props)
+        this.getData()
+      }
+    },
+    removeAttr(index){
+      this.searchParams.props.splice(index,1)
+      this.getData()
     }
   },
   watch: {
