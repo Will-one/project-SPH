@@ -77,7 +77,7 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination pageNo='1' continue='5' total="173" totalPages='18'/>
+          <Pagination :pageNo="searchParams.pageNo" continues='5' :total="total" :totalPages='totalPages' @getPageNo="getPageNo"/>
         </div>
       </div>
     </div>
@@ -127,6 +127,10 @@ export default {
   },
   computed: {
     ...mapGetters("search", ["goodsList", "trademarkList", "attrsList"]),
+    ...mapState("search",{
+      total:state=>state.searchInfo.total,
+      totalPages:state=>state.searchInfo.totalPages
+    }),
     isOne(){
       return this.searchParams.order.indexOf('1') != -1
     },
@@ -189,6 +193,11 @@ export default {
         this.searchParams.order = this.searchParams.order == '2:desc'?'2:asc':'2:desc'
         this.getData()
       }
+    },
+    // Pagination的自定义事件
+    getPageNo(pageNo){
+      this.searchParams.pageNo = pageNo
+      this.getData()
     }
   },
   watch: {
