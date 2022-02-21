@@ -98,7 +98,7 @@
                 <a href="javascript:" class="mins" @click="skuNum>1?skuNum--:1">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addToCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -381,6 +381,20 @@ export default {
         this.skuNum = parseInt(value)
       }
 
+    },
+    async addToCart(){
+      /*
+        派发了一个action，调动接口加入购物车。
+        需要知道调用接口成功与否，可以在接口定义中return 一个 promise对象
+        在当前函数使用try catch块包裹
+      */ 
+      try {
+        await this.$store.dispatch('detail/addOrUpdateCart',{skuId:this.$route.params.skuid,skuNum:this.skuNum})
+        // 路由跳转
+        this.$router.push({name:'addcartsuccess'})
+      } catch (error){
+        alert(error.message)
+      }
     }
   }
 };
