@@ -1,7 +1,11 @@
 import {reqGetDetail,reqAddOrUpdateCart} from "@/api"
+// 封装了临时游客身份的函数
+import { getUUID } from "@/utils/uuid_token"
 
 const state = {
-    detailInfo:{}
+    detailInfo:{},
+    // 游客的临时身份
+    uuid_token:getUUID()
 }
 
 const mutations = {

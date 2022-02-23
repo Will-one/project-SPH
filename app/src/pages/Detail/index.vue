@@ -390,8 +390,9 @@ export default {
       */ 
       try {
         await this.$store.dispatch('detail/addOrUpdateCart',{skuId:this.$route.params.skuid,skuNum:this.skuNum})
-        // 路由跳转
-        this.$router.push({name:'addcartsuccess'})
+        //1 路由跳转至加入购物车成功页面 2 将产品信息带给路由页面
+        sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo))
+        this.$router.push({name:'addcartsuccess',query:{skuNum:this.skuNum}})
       } catch (error){
         alert(error.message)
       }

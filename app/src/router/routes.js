@@ -5,6 +5,7 @@ import Login from "@/pages/Login"
 import Register from "@/pages/Register"
 import Detail from "@/pages/Detail"
 import AddCartSuccess from "@/pages/AddCartSuccess"
+import ShopCart from "@/pages/ShopCart"
 
 export default [
     {
@@ -39,9 +40,15 @@ export default [
         meta: { footerShow: false }
     },
     {
-       path: '/addcartsuccess' ,
+       path: '/addcartsuccess',
        component: AddCartSuccess,
        name: 'addcartsuccess',
        meta: { footerShow:true }
+    },
+    {
+        path: '/shopcart',
+        component: ShopCart,
+        name:'shopcart',
+        meta:{ footerShow:true }
     }
 ]
