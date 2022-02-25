@@ -20,10 +20,19 @@ export const reqAddOrUpdateCart = (skuId,skuNum) => requests({url:`/cart/addToCa
 export const reqGetCartList = () => requests({url:'/cart/cartList',method:'get'})
 
 // 删除购物车数据 接口 /api/cart/deleteCart/{skuId} 请求方式delete
-export const reqDeleteCart = (skuId) => requests({url:`cart/deleteCart/${skuId}`,method:'delete'})
+export const reqDeleteCart = (skuId) => requests({url:`/cart/deleteCart/${skuId}`,method:'delete'})
 
 // 修改商品的选中状态 /api/cart/checkCart/{skuID}/{isChecked} 请求方式get
 export const reqCheckCart = (skuId, isChecked)=> requests({url:`/cart/checkCart/${skuId}/${isChecked}`,method:'get'})
+
+// 获取短信验证码接口【仿真】 /api/user/passport/sendCode/{phone} 请求方式 get
+export const reqSendCode = (phone) => requests({url:`/user/passport/sendCode/${phone}`,method:'get'})
+
+// 注册用户 /api/user/passport/register 请求方式post
+export const reqRegister = (params) => requests({url:'/user/passport/register',method:'post',data:params})
+
+// 用户登录 /api/user/passport/login 请求方式post
+export const reqLogin = (params) => requests({url:'/user/passport/login',method:'post',data:params})
 
 // mock
 export const reqGetBannerList = () => mockRequests({ url: '/banner', method: 'get' })

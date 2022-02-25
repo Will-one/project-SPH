@@ -164,7 +164,8 @@ export default {
           width: 25%;
 
           .list-item {
-            background-image: url(./images/icons.png);
+            // 在jsconfig.json中配置过@/*表示src/*,在css中使用的时候注意前面加~
+            background-image: url(~@/assets/images/icons.png);
             width: 61px;
             height: 40px;
             display: block;

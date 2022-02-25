@@ -8,6 +8,7 @@ import home from './home'
 import search from './search'
 import detail from './detail'
 import cart from './cart'
+import user from './user'
 
 // 创建并暴露
 export default new Vuex.Store({
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         home,
         search,
         detail,
-        cart
+        cart,
+        user
     }
 })
