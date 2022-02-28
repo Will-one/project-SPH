@@ -34,6 +34,13 @@ export const reqRegister = (params) => requests({url:'/user/passport/register',m
 // 用户登录 /api/user/passport/login 请求方式post
 export const reqLogin = (params) => requests({url:'/user/passport/login',method:'post',data:params})
 
+// 获取用户信息【需要带着用户的token向服务器要用户的信息】 /api/user/passport/auth/getUserInfo 请求方式get
+export const reqUserInfo = () => requests({url:'/user/passport/auth/getUserInfo', method:'get'})
+
+// 退出登录 /api/user/passport/logout 请求方法 get
+export const  reqLogout = () => requests({url:'/user/passport/logout',method:'get'})
+
+
 // mock
 export const reqGetBannerList = () => mockRequests({ url: '/banner', method: 'get' })
 export const reqGetFloorList = () => mockRequests({ url: '/floor', method: 'get' })

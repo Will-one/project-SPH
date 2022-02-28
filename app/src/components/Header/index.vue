@@ -5,10 +5,14 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="!userInfo.name">
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link class="register" to="/register">免费注册</router-link>
+          </p>
+          <p v-else>
+            <a>{{userInfo.name}}</a>
+            <a class="register" @click="logout">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -59,11 +63,17 @@ export default {
       keyword:''
     }
   },
+  computed:{
+    userInfo(){
+      return this.$store.state.user.userInfo
+    }
+  },
   mounted() {
     this.$bus.$on('rmkw',()=>{
       // 清空搜索框中的内容
       this.keyword = ''
-    })
+    }),
+    this.$store.dispatch('user/getUserInfo')
   },
   methods: {
     // 搜索按钮的回调函数
@@ -75,6 +85,21 @@ export default {
       // this.$router.push(`/search/${this.keyword}?k=${this.keyword}`)
       // 第三种（常用）：对象【params对象形式的时候，必须用name】
       this.$router.push({name:"search",params:{keyword:this.keyword || undefined}, query:this.$route.query})
+    },
+    
+    // 退出登录
+    async logout(){
+      // 退出登录要做的事
+      // 1.发请求，通知服务器退出登录【服务器要清除token】
+      // 2.清空页面持久化的token和用户信息
+      try {
+        await this.$store.dispatch('user/logout')
+        // 回到首页
+        this.$router.push('/home')
+      } catch(error) {
+        alert(error.message)
+      }
+      
     }
   },
 };

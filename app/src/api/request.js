@@ -6,7 +6,7 @@ import nprogress from 'nprogress'
 // 还要引入进度条的样式，不然没有效果
 import 'nprogress/nprogress.css'
 
-// 在api模块中引入store【为了使用持久化的游客uuid】
+// 在api模块中引入store【为了使用持久化的游客uuid,在detail页面使用过，为了看购物车】
 import store from '@/store'
 
 // 1.利用axios对象的方法create，去创建一个axios实例
@@ -22,6 +22,10 @@ requests.interceptors.request.use((config) => {
     // 有UUID的话，给请求头添加字段（字段名称前后端商定）
     if (store.state.detail.uuid_token){
         config.headers.userTempId = store.state.detail.uuid_token
+    }
+    // 有token的话，给请求头添加字段（字段名称前后端商定）
+    if (store.state.user.token){
+        config.headers.token = store.state.user.token
     }
     // 进度条开始
     nprogress.start()
