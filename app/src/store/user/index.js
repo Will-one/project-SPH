@@ -64,7 +64,7 @@ const actions = {
             commit('GETUSERINFO',res.data)
             return 'ok'
         }else{
-            return Promise.reject(new Error('faile'))
+            return Promise.reject(new Error(res.message))
         }
     },
 

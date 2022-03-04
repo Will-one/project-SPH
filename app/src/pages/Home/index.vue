@@ -24,8 +24,6 @@ export default {
   components: { ListContainer, Recommend, Rank, Like, Floor, Brand },
   mounted() {
     this.$store.dispatch("home/getFloorList");
-    // 通过token获取用户信息
-    this.$store.dispatch('user/getUserInfo')
   },
   computed: {
     ...mapState("home", ["floorList"]),

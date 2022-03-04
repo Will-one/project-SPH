@@ -5,9 +5,14 @@ import App from './App.vue'
 import TypeNav from '@/components/TypeNav'
 import Carousel from '@/components/Carousel'
 import Pagination from '@/components/Pagination'
+import {MessageBox} from 'element-ui'
 Vue.component(TypeNav.name,TypeNav)
 Vue.component(Carousel.name,Carousel)
 Vue.component(Pagination.name,Pagination)
+
+// 按需注册ElementUI还可以将引入的组件挂载到vue的原型对象上
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
 
 Vue.config.productionTip = false
 

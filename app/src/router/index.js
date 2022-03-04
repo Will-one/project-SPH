@@ -5,6 +5,7 @@ import routes from "./routes"
 
 // 引入 store
 import store from "@/store"
+import {removeToken} from "@/utils/token"
 
 Vue.use(VueRouter)
 
@@ -48,11 +49,37 @@ let router = new VueRouter({
 })
 
 // 全局前置守卫
-router.beforeEach((to,from,next)=>{
+router.beforeEach(async (to,from,next)=>{
     // to：可以获取到你要跳转的路由的信息
     // from：可以获取到你从哪个路由而来的信息
     // next: 放行函数 next()    next('/login')   next(false)
-    next()
+    let token = store.state.user.token // 用户登陆过，并且没有logout才有
+    let name = store.state.user.userInfo.name //userInfo至少是一个空对象，name最多为undefined
+    if (token){
+        // 用户已登录过，不能再进入login页面
+        if(to.path == '/login'){
+            next('/')
+        } else {
+            // 已登录，去的不是login，判断是否有用户name，可以派发请求获取userInfo
+            if(name){
+                next()
+            } else {
+                // 派发请求，获取userInfo
+                try{
+                    await store.dispatch('user/getUserInfo')
+                    next()
+                }catch(error){
+                    // 走到这儿一定代表token失效
+                    await store.dispatch('user/logout') // token失效了logout能返回200么？
+                    next('/login')
+                    alert("身份过期，请重新登陆")
+                } 
+            }
+        }        
+    } else {
+        next()
+    }
+    
 })
 
 export default router

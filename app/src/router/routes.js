@@ -6,6 +6,9 @@ import Register from "@/pages/Register"
 import Detail from "@/pages/Detail"
 import AddCartSuccess from "@/pages/AddCartSuccess"
 import ShopCart from "@/pages/ShopCart"
+import Trade from "@/pages/Trade"
+import Pay from "@/pages/Pay"
+import PaySuccess from "@/pages/PaySuccess"
 
 export default [
     {
@@ -50,5 +53,23 @@ export default [
         component: ShopCart,
         name:'shopcart',
         meta:{ footerShow:true }
-    }
+    },
+    {
+        path: '/trade',
+        component: Trade,
+        name: 'trade',
+        meta: { footerShow:true }
+    },
+    {
+        path: '/pay',
+        component: Pay,
+        name: 'pay',
+        meta: { footerShow:true }
+    },
+    {
+        path: '/paysuccess',
+        component: PaySuccess,
+        name: 'paysuccess',
+        meta: { footerShow:true }
+    },
 ]

@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import debounce from "lodash/debounce";
 export default {
   name: "Login",
   data() {
@@ -77,7 +76,7 @@ export default {
     };
   },
   methods: {
-    login: debounce(async function () {
+    async login(){
       try {
         let { phone, password } = this;
         phone && password && (await this.$store.dispatch("user/login", { phone, password }));
@@ -86,7 +85,7 @@ export default {
       } catch (error) {
         alert(error.message);
       }
-    }, 500),
+    }
   },
 };
 </script>
