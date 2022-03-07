@@ -1,4 +1,4 @@
-// 引入路由组件
+// 引入一级路由组件
 import Home from "@/pages/Home"
 import Search from "@/pages/Search"
 import Login from "@/pages/Login"
@@ -9,6 +9,10 @@ import ShopCart from "@/pages/ShopCart"
 import Trade from "@/pages/Trade"
 import Pay from "@/pages/Pay"
 import PaySuccess from "@/pages/PaySuccess"
+import Center from "@/pages/Center" 
+// 引入二级路由组件
+import MyOrder from "@/pages/Center/MyOrder"
+import GroupOrder from "@/pages/Center/GroupOrder"
 
 export default [
     {
@@ -71,5 +75,25 @@ export default [
         component: PaySuccess,
         name: 'paysuccess',
         meta: { footerShow:true }
+    },
+    {
+        path: '/center',
+        component: Center,
+        name: 'center',
+        meta: { footerShow:true },
+        children:[
+            {
+                path:'/center',
+                redirect:'myorder'
+            },
+            {
+                path:'myorder',
+                component:MyOrder
+            },
+            {
+                path:'grouporder',
+                component:GroupOrder
+            }
+        ]
     },
 ]

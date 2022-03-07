@@ -55,6 +55,9 @@ export const reqPayInfo = (orderId) => requests({ url: `/payment/weixin/createNa
 // 获取订单的支付状态 /api/payment/weixin/queryPayStatus/{orderId} 请求方式 get
 export const reqPayStatus = (orderId) => requests({url:`/payment/weixin/queryPayStatus/${orderId}`,method:'get'})
 
+// 获取个人中心订单列表 /api/order/auth/{page}/{limit} 请求方式 get
+export const reqMyOrderList = (page,limit) => requests({url:`/order/auth/${page}/${limit}`,methods:'get'})
+
 // mock
 export const reqGetBannerList = () => mockRequests({ url: '/banner', method: 'get' })
 export const reqGetFloorList = () => mockRequests({ url: '/floor', method: 'get' })
