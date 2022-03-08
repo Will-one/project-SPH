@@ -5,13 +5,15 @@ import routes from "./routes"
 
 // 引入 store
 import store from "@/store"
-import {removeToken} from "@/utils/token"
 
 Vue.use(VueRouter)
 
 
 
-/* 重写路由 */
+/* 
+    重写路由,为啥要重写? 
+
+*/
 // 1.先保存一份VueRouter原型的push
 let originPush = VueRouter.prototype.push
 let originReplace = VueRouter.prototype.replace
@@ -55,6 +57,7 @@ router.beforeEach(async (to,from,next)=>{
     // next: 放行函数 next()    next('/login')   next(false)
     let token = store.state.user.token // 用户登陆过，并且没有logout才有
     let name = store.state.user.userInfo.name //userInfo至少是一个空对象，name最多为undefined
+    // 用户已经登录过的情况
     if (token){
         // 用户已登录过，不能再进入login页面
         if(to.path == '/login'){
@@ -76,8 +79,16 @@ router.beforeEach(async (to,from,next)=>{
                 } 
             }
         }        
-    } else {
-        next()
+    } else { 
+        // 用户未登录过的情况 购物车,支付页面,个人中心等不能访问
+        // 对于用户点击了购物车页面跳转到login的,登录后应该在购物车页面,而不应该去home,所以将to.path作为query参数传递给login处理
+        let toPath = to.path //先保存to.path,因为后面会被新路由覆盖
+        console.log(toPath)
+        if(toPath.indexOf('/shop') != -1 || toPath.indexOf('/pay') != -1 || toPath.indexOf('/center') != -1 || toPath.indexOf('/trade') != -1){
+            next(`/login?redirect=${toPath}`)
+        } else {
+            next()
+        }
     }
     
 })
