@@ -25,6 +25,15 @@ import '@/mock/mockServe'
 // 引入swiper的样式
 import 'swiper/css/swiper.css'
 
+// 引入图片懒人加载 
+import lazyImg from "@/assets/lazy.gif"
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload,{
+  loading:lazyImg
+})
+
+// 引入校验插件
+import "@/plugins/validate"
 
 new Vue({
   render: h => h(App),

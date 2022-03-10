@@ -9,4 +9,6 @@ module.exports = {
             },
         },
     },
+    // 去掉打包后产生的map文件（定位错误用的文件，上线一般不需要）
+    productionSourceMap:false
 }
